@@ -69,17 +69,11 @@ int main(int argc, char **argv) {
   while (1) {
     for (a = 0; a < N; a++) bestd[a] = 0;
     for (a = 0; a < N; a++) bestw[a][0] = 0;
-    printf("Enter three words (EXIT to break): ");
+
     a = 0;
-    while (1) {
-      st1[a] = fgetc(stdin);
-      if ((st1[a] == '\n') || (a >= max_size - 1)) {
-        st1[a] = 0;
-        break;
-      }
-      a++;
-    }
-    if (!strcmp(st1, "EXIT")) break;
+    st1[0] = 0;
+    gets(st1);
+    if (!strcmp(st1, "")) break;
     cn = 0;
     b = 0;
     c = 0;
@@ -104,14 +98,14 @@ int main(int argc, char **argv) {
       for (b = 0; b < words; b++) if (!strcmp(&vocab[b * max_w], st[a])) break;
       if (b == words) b = 0;
       bi[a] = b;
-      printf("\nWord: %s  Position in vocabulary: %lld\n", st[a], bi[a]);
+      printf("%s ", st[a]);
       if (b == 0) {
         printf("Out of dictionary word!\n");
         break;
       }
     }
+    printf("\n");
     if (b == 0) continue;
-    printf("\n                                              Word              Distance\n------------------------------------------------------------------------\n");
     for (a = 0; a < size; a++) vec[a] = M[a + bi[1] * size] - M[a + bi[0] * size] + M[a + bi[2] * size];
     len = 0;
     for (a = 0; a < size; a++) len += vec[a] * vec[a];
@@ -140,7 +134,7 @@ int main(int argc, char **argv) {
         }
       }
     }
-    for (a = 0; a < N; a++) printf("%50s\t\t%f\n", bestw[a], bestd[a]);
+    for (a = 0; a < N; a++) printf(" %s\t%f\n", bestw[a], bestd[a]);
   }
   return 0;
 }
